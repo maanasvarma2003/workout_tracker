@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import StatsCard from "@/components/StatsCard";
 import WorkoutChart from "@/components/WorkoutChart";
 import WorkoutDialog from "@/components/WorkoutDialog";
+import WorkoutHistoryCard from "@/components/WorkoutHistoryCard";
 import { useToast } from "@/hooks/use-toast";
 import { 
   Dumbbell, 
@@ -14,7 +15,9 @@ import {
   Flame, 
   LogOut,
   Activity,
-  Target
+  Target,
+  BookOpen,
+  BarChart3
 } from "lucide-react";
 
 interface Workout {
@@ -103,11 +106,18 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Animated background */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+      </div>
+
       {/* Header */}
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b bg-card/50 backdrop-blur-md sticky top-0 z-10 shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+          <div className="flex items-center gap-3 animate-fade-in">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/50">
               <Dumbbell className="w-5 h-5 text-primary-foreground" />
             </div>
             <div>
@@ -117,39 +127,58 @@ const Dashboard = () => {
               <p className="text-xs text-muted-foreground">Welcome back, {user?.email?.split("@")[0]}</p>
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout}>
-            <LogOut className="mr-2 h-4 w-4" /> Logout
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => navigate("/exercises")} className="hover:scale-105 transition-transform">
+              <BookOpen className="mr-2 h-4 w-4" /> Exercises
+            </Button>
+            <Button variant="outline" onClick={() => navigate("/goals")} className="hover:scale-105 transition-transform">
+              <Target className="mr-2 h-4 w-4" /> Goals
+            </Button>
+            <Button variant="outline" onClick={handleLogout} className="hover:scale-105 transition-transform">
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
         {/* Stats Grid */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8 animate-fade-in">
-          <StatsCard
-            title="Total Workouts"
-            value={totalWorkouts}
-            icon={Activity}
-            trend={`${totalWorkouts} sessions logged`}
-          />
-          <StatsCard
-            title="Total Duration"
-            value={`${totalDuration}m`}
-            icon={Calendar}
-            trend={`Avg ${avgDuration}m per workout`}
-          />
-          <StatsCard
-            title="Calories Burned"
-            value={totalCalories.toLocaleString()}
-            icon={Flame}
-            className="bg-gradient-to-br from-secondary/10 to-secondary/5"
-          />
-          <StatsCard
-            title="Weekly Average"
-            value={`${Math.round(totalWorkouts / 4)}x`}
-            icon={TrendingUp}
-            trend="Keep up the great work!"
-          />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
+          <div className="animate-slide-up" style={{ animationDelay: "0s" }}>
+            <StatsCard
+              title="Total Workouts"
+              value={totalWorkouts}
+              icon={Activity}
+              trend={`${totalWorkouts} sessions logged`}
+              className="hover:scale-105 transition-transform"
+            />
+          </div>
+          <div className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
+            <StatsCard
+              title="Total Duration"
+              value={`${totalDuration}m`}
+              icon={Calendar}
+              trend={`Avg ${avgDuration}m per workout`}
+              className="hover:scale-105 transition-transform"
+            />
+          </div>
+          <div className="animate-slide-up" style={{ animationDelay: "0.2s" }}>
+            <StatsCard
+              title="Calories Burned"
+              value={totalCalories.toLocaleString()}
+              icon={Flame}
+              className="bg-gradient-to-br from-secondary/10 to-secondary/5 hover:scale-105 transition-transform"
+            />
+          </div>
+          <div className="animate-slide-up" style={{ animationDelay: "0.3s" }}>
+            <StatsCard
+              title="Weekly Average"
+              value={`${Math.round(totalWorkouts / 4)}x`}
+              icon={TrendingUp}
+              trend="Keep up the great work!"
+              className="hover:scale-105 transition-transform"
+            />
+          </div>
         </div>
 
         {/* Action Button */}
@@ -176,47 +205,34 @@ const Dashboard = () => {
         )}
 
         {/* Recent Workouts */}
-        <Card className="animate-slide-up">
-          <CardHeader>
+        <Card className="animate-slide-up border-primary/20 shadow-xl">
+          <CardHeader className="bg-gradient-to-r from-primary/5 to-accent/5">
             <CardTitle className="flex items-center gap-2">
-              <Target className="h-5 w-5" />
+              <BarChart3 className="h-5 w-5 text-primary" />
               Recent Workouts
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             {loading ? (
-              <p className="text-center text-muted-foreground">Loading...</p>
+              <div className="space-y-4">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="h-20 bg-muted rounded-lg" />
+                  </div>
+                ))}
+              </div>
             ) : workouts.length === 0 ? (
-              <div className="text-center py-8">
-                <Dumbbell className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                <p className="text-muted-foreground">No workouts logged yet. Start your fitness journey today!</p>
+              <div className="text-center py-12">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                  <Dumbbell className="h-10 w-10 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">No workouts yet</h3>
+                <p className="text-muted-foreground mb-6">Start your fitness journey today!</p>
               </div>
             ) : (
               <div className="space-y-4">
-                {workouts.slice(0, 5).map((workout) => (
-                  <div
-                    key={workout.id}
-                    className="flex items-center justify-between p-4 rounded-lg border hover:bg-muted/50 transition-colors"
-                  >
-                    <div>
-                      <h3 className="font-semibold">{workout.title}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {new Date(workout.workout_date).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      {workout.duration_minutes && (
-                        <p className="font-semibold">{workout.duration_minutes}m</p>
-                      )}
-                      {workout.calories_burned && (
-                        <p className="text-sm text-muted-foreground">{workout.calories_burned} cal</p>
-                      )}
-                    </div>
-                  </div>
+                {workouts.slice(0, 5).map((workout, index) => (
+                  <WorkoutHistoryCard key={workout.id} workout={workout} index={index} />
                 ))}
               </div>
             )}
