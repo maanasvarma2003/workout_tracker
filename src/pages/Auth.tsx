@@ -82,30 +82,38 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-accent/10 p-4">
-      <div className="w-full max-w-md animate-fade-in">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent mb-4 animate-pulse-glow">
-            <Dumbbell className="w-8 h-8 text-primary-foreground" />
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden p-4">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      
+      <div className="w-full max-w-md relative z-10 animate-scale-in">
+        <div className="text-center mb-8 animate-slide-down">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent mb-4 shadow-lg animate-pulse-glow relative">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-accent opacity-50 blur-xl animate-pulse" />
+            <Dumbbell className="w-10 h-10 text-primary-foreground relative z-10 animate-bounce-subtle" />
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent animate-gradient-shift" style={{ backgroundSize: '200% 200%' }}>
             FitTrack
           </h1>
-          <p className="text-muted-foreground mt-2">Track your fitness journey</p>
+          <p className="text-muted-foreground mt-2 animate-fade-in" style={{ animationDelay: '0.2s' }}>Track your fitness journey with style</p>
         </div>
 
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle>{isLogin ? "Welcome Back" : "Create Account"}</CardTitle>
-            <CardDescription>
+        <Card className="shadow-2xl backdrop-blur-sm bg-card/95 border-2 hover:shadow-primary/20 transition-all duration-500 animate-slide-up">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              {isLogin ? "Welcome Back" : "Create Account"}
+            </CardTitle>
+            <CardDescription className="text-base">
               {isLogin ? "Sign in to continue your fitness journey" : "Start tracking your workouts today"}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleAuth} className="space-y-4">
               {!isLogin && (
-                <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
+                <div className="space-y-2 animate-slide-right" style={{ animationDelay: '0.1s' }}>
+                  <Label htmlFor="fullName" className="text-sm font-medium">Full Name</Label>
                   <Input
                     id="fullName"
                     type="text"
@@ -113,12 +121,13 @@ const Auth = () => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required={!isLogin}
+                    className="transition-all focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
               )}
               
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+              <div className="space-y-2 animate-slide-right" style={{ animationDelay: '0.2s' }}>
+                <Label htmlFor="email" className="text-sm font-medium">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -126,11 +135,12 @@ const Auth = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  className="transition-all focus:ring-2 focus:ring-primary/50"
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+              <div className="space-y-2 animate-slide-right" style={{ animationDelay: '0.3s' }}>
+                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -139,19 +149,25 @@ const Auth = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
+                  className="transition-all focus:ring-2 focus:ring-primary/50"
                 />
               </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button 
+                type="submit" 
+                className="w-full bg-gradient-to-r from-primary to-accent hover:shadow-glow-strong transition-all duration-300 transform hover:scale-105 animate-slide-up" 
+                style={{ animationDelay: '0.4s' }}
+                disabled={loading}
+              >
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {isLogin ? "Sign In" : "Sign Up"}
               </Button>
 
-              <div className="text-center">
+              <div className="text-center animate-fade-in" style={{ animationDelay: '0.5s' }}>
                 <button
                   type="button"
                   onClick={() => setIsLogin(!isLogin)}
-                  className="text-sm text-primary hover:underline"
+                  className="text-sm text-primary hover:text-accent transition-colors hover:underline"
                 >
                   {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
                 </button>

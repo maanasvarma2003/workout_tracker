@@ -65,64 +65,81 @@ const WorkoutDialog = ({ onWorkoutAdded }: WorkoutDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="lg" className="shadow-lg hover:shadow-xl transition-shadow">
-          <Plus className="mr-2 h-5 w-5" /> Log Workout
+        <Button 
+          size="lg" 
+          className="shadow-lg hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-primary to-accent group relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <Plus className="mr-2 h-5 w-5 relative z-10 group-hover:rotate-90 transition-transform duration-300" /> 
+          <span className="relative z-10">Log Workout</span>
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="animate-scale-in backdrop-blur-sm bg-card/95">
         <DialogHeader>
-          <DialogTitle>Log New Workout</DialogTitle>
+          <DialogTitle className="text-2xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Log New Workout
+          </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="title">Workout Title</Label>
+          <div className="space-y-2 animate-slide-right" style={{ animationDelay: '0.1s' }}>
+            <Label htmlFor="title" className="text-sm font-medium">Workout Title</Label>
             <Input
               id="title"
               placeholder="Morning Run, Leg Day, etc."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
+              className="transition-all focus:ring-2 focus:ring-primary/50 focus:scale-[1.02]"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="duration">Duration (minutes)</Label>
+            <div className="space-y-2 animate-slide-right" style={{ animationDelay: '0.2s' }}>
+              <Label htmlFor="duration" className="text-sm font-medium">Duration (minutes)</Label>
               <Input
                 id="duration"
                 type="number"
                 placeholder="45"
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
+                className="transition-all focus:ring-2 focus:ring-primary/50 focus:scale-[1.02]"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="calories">Calories Burned</Label>
+            <div className="space-y-2 animate-slide-left" style={{ animationDelay: '0.2s' }}>
+              <Label htmlFor="calories" className="text-sm font-medium">Calories Burned</Label>
               <Input
                 id="calories"
                 type="number"
                 placeholder="300"
                 value={calories}
                 onChange={(e) => setCalories(e.target.value)}
+                className="transition-all focus:ring-2 focus:ring-primary/50 focus:scale-[1.02]"
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="notes">Notes</Label>
+          <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <Label htmlFor="notes" className="text-sm font-medium">Notes</Label>
             <Textarea
               id="notes"
               placeholder="How did it go? Any personal records?"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
+              className="transition-all focus:ring-2 focus:ring-primary/50 resize-none"
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Save Workout
+          <Button 
+            type="submit" 
+            className="w-full bg-gradient-to-r from-primary to-accent hover:shadow-glow-strong transition-all duration-300 transform hover:scale-105 animate-slide-up group relative overflow-hidden" 
+            style={{ animationDelay: '0.4s' }}
+            disabled={loading}
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin relative z-10" />}
+            <span className="relative z-10">Save Workout</span>
           </Button>
         </form>
       </DialogContent>

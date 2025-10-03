@@ -22,14 +22,17 @@ All colors MUST be HSL.
     --primary: 210 100% 50%;
     --primary-foreground: 0 0% 100%;
     --primary-glow: 210 100% 60%;
+    --primary-light: 210 100% 70%;
 
     /* Coral/orange - intensity and calories */
     --secondary: 16 100% 66%;
     --secondary-foreground: 0 0% 100%;
+    --secondary-glow: 16 100% 76%;
 
     /* Success green - achievements */
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
+    --success-glow: 142 76% 46%;
 
     /* Muted for subtle elements */
     --muted: 210 40% 96%;
@@ -38,6 +41,7 @@ All colors MUST be HSL.
     /* Accent - purple for variety */
     --accent: 262 83% 58%;
     --accent-foreground: 0 0% 100%;
+    --accent-glow: 262 83% 68%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -48,21 +52,28 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    /* Gradients for visual impact */
+    /* Enhanced Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(210 100% 50%), hsl(210 100% 60%));
     --gradient-secondary: linear-gradient(135deg, hsl(16 100% 66%), hsl(16 100% 76%));
     --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 46%));
     --gradient-hero: linear-gradient(135deg, hsl(210 100% 50%) 0%, hsl(262 83% 58%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-accent: linear-gradient(135deg, hsl(262 83% 58%), hsl(210 100% 50%));
+    --gradient-glow: radial-gradient(circle at 50% 50%, hsl(210 100% 60% / 0.3), transparent 70%);
+    --gradient-animated: linear-gradient(270deg, hsl(210 100% 50%), hsl(262 83% 58%), hsl(16 100% 66%), hsl(142 76% 36%));
 
-    /* Shadows for depth */
+    /* Enhanced Shadows */
     --shadow-sm: 0 1px 2px 0 hsl(210 40% 20% / 0.05);
     --shadow-md: 0 4px 6px -1px hsl(210 40% 20% / 0.1);
     --shadow-lg: 0 10px 15px -3px hsl(210 40% 20% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(210 40% 20% / 0.15);
     --shadow-glow: 0 0 20px hsl(210 100% 50% / 0.3);
+    --shadow-glow-strong: 0 0 40px hsl(210 100% 50% / 0.5);
+    --shadow-glow-accent: 0 0 30px hsl(262 83% 58% / 0.4);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
   .dark {
